@@ -29,10 +29,10 @@ hypersolid partition layout
 
 The following GPT based partition layout is recommended but not required (of course, syslinux can handle ext2 on gpt including legacy/mbr mode).
 
-* Partition 1 "efiboot"  - `50MB`  | `FAT32` | syslinux efi loader ons esp partition including kernel+initramfs(1)
-* Partition 2 "system"   - `1GB`   | `EXT4`  | hypersolid system partition including `system.img`
+* Partition 1 "efiboot"  - `200MB` | `FAT32` | syslinux efi loader ons esp partition including kernel+initramfs(1)
+* Partition 2 "system"   - `2GB`   | `EXT4`  | hypersolid system partition including `system.img`
 * Partition 3 "conf"     - `512MB` | `EXT4`  | hypersolid persistent storage
-* Partition 4 "swap"     - `4GB`   | `EXT4`  | swap (optional) 
+* Partition 4 "swap"     - `4GB`   | `EXT4`  | swap (optional)
 * Partition 5 "data"     - `XGB`   | `EXT4`  | persistent storage (optional)
 
 Build the image

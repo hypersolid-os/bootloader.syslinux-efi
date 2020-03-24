@@ -19,12 +19,12 @@ fi
 mkdir -p /mnt/esp
 
 # Create sparse file to represent our disk
-truncate --size 5600M $VIRTUAL_DISK
+truncate --size 6612M $VIRTUAL_DISK
 
 # Create partition layout
 sgdisk --clear \
-  --new 1::+50M   --typecode=1:ef00 --change-name=1:'efiboot' \
-  --new 2::+1G    --typecode=2:8300 --change-name=2:'system' \
+  --new 1::+200M  --typecode=1:ef00 --change-name=1:'efiboot' \
+  --new 2::+2G    --typecode=2:8300 --change-name=2:'system' \
   --new 3::+512M  --typecode=3:8300 --change-name=3:'conf' \
   --new 4::-0M    --typecode=4:8200 --change-name=4:'swap' \
   ${VIRTUAL_DISK}
