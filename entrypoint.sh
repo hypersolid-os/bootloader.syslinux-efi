@@ -25,9 +25,9 @@ truncate --size 8712M $VIRTUAL_DISK
 sgdisk --clear \
   --new 1::+200M  --typecode=1:ef00 --change-name=1:'efiboot' \
   --new 2::+2G    --typecode=2:8300 --change-name=2:'system0' \
-  --new 3::+2G    --typecode=2:8300 --change-name=3:'system1' \
-  --new 4::+512M  --typecode=3:8300 --change-name=4:'conf' \
-  --new 5::-0M    --typecode=4:8200 --change-name=5:'swap' \
+  --new 3::+2G    --typecode=3:8300 --change-name=3:'system1' \
+  --new 4::+512M  --typecode=4:8300 --change-name=4:'conf' \
+  --new 5::-0M    --typecode=5:8200 --change-name=5:'swap' \
   ${VIRTUAL_DISK}
 
 # show layout
