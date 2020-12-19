@@ -19,13 +19,13 @@ fi
 mkdir -p /mnt/esp
 
 # Create sparse file to represent our disk
-truncate --size 8712M $VIRTUAL_DISK
+truncate --size 12G $VIRTUAL_DISK
 
 # Create partition layout
 sgdisk --clear \
   --new 1::+200M  --typecode=1:ef00 --change-name=1:'efiboot' \
-  --new 2::+2G    --typecode=2:8300 --change-name=2:'system0' \
-  --new 3::+2G    --typecode=3:8300 --change-name=3:'system1' \
+  --new 2::+5G    --typecode=2:8300 --change-name=2:'system0' \
+  --new 3::+5G    --typecode=3:8300 --change-name=3:'system1' \
   --new 4::+512M  --typecode=4:8300 --change-name=4:'conf' \
   --new 5::-0M    --typecode=5:8200 --change-name=5:'swap' \
   ${VIRTUAL_DISK}
@@ -51,6 +51,10 @@ mount ${LOOPDEV}p1 /mnt/esp
 
 # create syslinux dir
 mkdir -p /mnt/esp/efi/boot
+
+# create systemd dirs
+mkdir /mnt/esp/sys0
+mkdir /mnt/esp/sys1
 
 # copy efi loader
 cp /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi /mnt/esp/efi/boot/bootx64.efi
