@@ -8,8 +8,9 @@ WORKINGDIR="$(pwd)"
 CONTAINER_NAME="bootloader-syslinux-efi"
 
 # create environment
-docker build \
+sudo podman build \
     -t ${CONTAINER_NAME} \
+    --no-cache \
     . \
 && {
     echo "build environment ready"
@@ -19,14 +20,14 @@ docker build \
 }
 
 # container already exists ?
-docker container rm ${CONTAINER_NAME}-env && {
+sudo podman container rm ${CONTAINER_NAME}-env && {
     echo "existing build environment removed"
 } || {
     echo "cannot remove build environment"
 }
 
 # create image
-docker run \
+sudo podman run \
     --privileged=true \
     --volume /dev:/dev \
     --name ${CONTAINER_NAME}-env \
