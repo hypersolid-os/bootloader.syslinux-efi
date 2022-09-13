@@ -19,13 +19,13 @@ fi
 mkdir -p /mnt/esp
 
 # Create sparse file to represent our disk
-truncate --size 12G $VIRTUAL_DISK
+truncate --size "$((1+${PART_SYS_SIZE}*2))G" $VIRTUAL_DISK
 
 # Create partition layout
 sgdisk --clear \
   --new 1::+200M  --typecode=1:ef00 --change-name=1:'efiboot' \
-  --new 2::+5G    --typecode=2:8300 --change-name=2:'system0' \
-  --new 3::+5G    --typecode=3:8300 --change-name=3:'system1' \
+  --new 2::+${PART_SYS_SIZE}G    --typecode=2:8300 --change-name=2:'system0' \
+  --new 3::+${PART_SYS_SIZE}G    --typecode=3:8300 --change-name=3:'system1' \
   --new 4::+512M  --typecode=4:8300 --change-name=4:'conf' \
   ${VIRTUAL_DISK}
 
@@ -75,4 +75,4 @@ losetup --detach $LOOPDEV
 
 # compress image
 gzip ${VIRTUAL_DISK}
-cp ${VIRTUAL_DISK}.gz /tmp/dist/
+cp ${VIRTUAL_DISK}.gz /tmp/dist/syslinux-efi-${PART_SYS_SIZE}G-sys.img.gz

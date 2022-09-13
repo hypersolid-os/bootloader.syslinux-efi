@@ -11,6 +11,7 @@ Features
 * efi mode
 * pre-build partition kayout
 * dual system partitions (primary and backup)
+* variable system partition size
 
 How to deploy
 ===================
@@ -34,6 +35,9 @@ The following GPT based partition layout is recommended but not required (of cou
 * Partition 2 "system0"  - `5GB`   | `EXT4`  | hypersolid system0 partition including `system.img`
 * Partition 3 "system1"  - `5GB`   | `EXT4`  | hypersolid system1 partition including `system.img`
 * Partition 4 "conf"     - `512MB` | `EXT4`  | hypersolid persistent storage
+
+**Optional partitions**
+
 * Partition 5 "swap"     - `4GB`   | `EXT4`  | swap (optional)
 * Partition 6 "data"     - `XGB`   | `EXT4`  | persistent storage (optional)
 
@@ -45,10 +49,8 @@ This bootloader-generator creates a raw GPT disk image with 4 paritions (boot, c
 Just run `build.sh` to build the docker image and trigger the image build script. The disk image will be copied into the `dist/` directory.
 
 ```txt
- $ ./build.sh 
-
+ $ ./build.sh [SYS_PART_SIZE]
 ```
-
 
 License
 ----------------------------

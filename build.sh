@@ -2,6 +2,15 @@
 
 set -e
 
+# sys partition size provided ?
+if [ -z "${1}" ]; then
+    echo "system partition size not provided - using default 1G setting"
+    PART_SYS_SIZE=1
+else
+    echo "using system partition size of ${1}GB"
+    PART_SYS_SIZE="${1}"
+fi
+
 # basedir
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 WORKINGDIR="$(pwd)"
@@ -34,6 +43,7 @@ sudo podman run \
     --tty \
     --interactive \
     --volume ${BASEDIR}/dist:/tmp/dist \
+    --env "PART_SYS_SIZE=${PART_SYS_SIZE}" \
     --rm \
     ${CONTAINER_NAME} \
 && {
