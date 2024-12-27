@@ -5,6 +5,7 @@ hypersolid syslinux efi bootloader for baremetal systems
 
 Use [syslinux/syslinux](https://wiki.syslinux.org/wiki/index.php?title=syslinux) as bootloader to load hypersolid.
 
+
 Features
 ===================
 
@@ -31,10 +32,11 @@ hypersolid partition layout
 
 The following GPT based partition layout is recommended but not required (of course, syslinux can handle ext2 on gpt including legacy/mbr mode).
 
-* Partition 1 "efiboot"  - `200MB` | `FAT32` | syslinux efi loader ons esp partition including kernel+initramfs(1)
-* Partition 2 "system0"  - `5GB`   | `EXT4`  | hypersolid system0 partition including `system.img`
-* Partition 3 "system1"  - `5GB`   | `EXT4`  | hypersolid system1 partition including `system.img`
-* Partition 4 "conf"     - `512MB` | `EXT4`  | hypersolid persistent storage
+* Partition 1 "efiboot"  - `200+XMB` | `FAT32` | syslinux efi loader ons esp partition including kernel+initramfs(1)
+* Partition 2 "conf"     - `512MB` | `EXT4`  | hypersolid persistent storage
+* Partition 3 "system0"  - `YGB`   | `EXT4`  | hypersolid system0 partition including `system.img`
+* Partition 4 "system1"  - `YGB`   | `EXT4`  | hypersolid system1 partition including `system.img`
+
 
 **Optional partitions**
 
@@ -48,8 +50,30 @@ This bootloader-generator creates a raw GPT disk image with 4 paritions (boot, c
 
 Just run `build.sh` to build the docker image and trigger the image build script. The disk image will be copied into the `dist/` directory.
 
-```txt
- $ ./build.sh [SYS_PART_SIZE]
+**basic build**
+
+```bash
+# ./build.sh [SYS_PART_SIZE] [layout]
+
+# e.g. 2x 5GB system partitions
+./build.sh 5000
+```
+
+**with ui + rescue**
+
+```bash
+# ./build.sh [SYS_PART_SIZE] [layout]
+
+# e.g. 2x 3GB system partitions + syslinux spalsh screen + addiitonal 500M partition1 space for rescue images 
+./build.sh 3000 ui
+```
+
+Custom Splash
+===================
+
+```bash
+# size 1024x768
+convert -depth 16 -colors 256 syslinux.png splash.png
 ```
 
 License

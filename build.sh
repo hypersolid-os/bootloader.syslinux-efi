@@ -44,6 +44,7 @@ sudo podman run \
     --interactive \
     --volume ${BASEDIR}/dist:/tmp/dist \
     --env "PART_SYS_SIZE=${PART_SYS_SIZE}" \
+    --env "PART_LAYOUT=${2}" \
     --rm \
     ${CONTAINER_NAME} \
 && {
