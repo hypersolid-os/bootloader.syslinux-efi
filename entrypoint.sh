@@ -73,7 +73,7 @@ if [ "${PART_LAYOUT}" == "ui" ]; then
 
     # copy config files
     cp /opt/conf/syslinux-ui.efi.cfg /mnt/esp/efi/boot/syslinux.cfg
-    cp /opt/conf/splash.png /mnt/esp/efi/boot/splash.png
+    cp /opt/conf/aenon-black.png /mnt/esp/efi/boot/splash.png
 else
     # copy config files
     cp /opt/conf/syslinux.efi.cfg /mnt/esp/efi/boot/syslinux.cfg
