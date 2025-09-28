@@ -20,12 +20,14 @@ mkdir -p /mnt/esp
 
 PART_BOOT_SIZE="200"
 if [ "${PART_LAYOUT}" == "ui" ]; then
-    echo "using UI part layout with rescue image"
-    PART_BOOT_SIZE="550"
+    PART_BOOT_SIZE="850"
+    echo "using UI part layout with rescue image (${PART_BOOT_SIZE} MB)"
+else
+    echo "using nonui part layout (${PART_BOOT_SIZE} MB)"
 fi
 
 # Create sparse file to represent our disk
-truncate --size "$((550+${PART_BOOT_SIZE}+${PART_SYS_SIZE}*2))M" $VIRTUAL_DISK
+truncate --size "$((512+10+${PART_BOOT_SIZE}+${PART_SYS_SIZE}*2))M" $VIRTUAL_DISK
 
 # Create partition layout
 sgdisk --clear \

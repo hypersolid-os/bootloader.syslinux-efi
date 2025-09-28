@@ -5,9 +5,9 @@ set -e
 # sys partition size provided ?
 if [ -z "${1}" ]; then
     echo "system partition size not provided - using default 1G setting"
-    PART_SYS_SIZE=1
+    PART_SYS_SIZE=1000
 else
-    echo "using system partition size of ${1}GB"
+    echo "using system partition size of ${1}MB"
     PART_SYS_SIZE="${1}"
 fi
 

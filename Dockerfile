@@ -1,4 +1,4 @@
-FROM debian:buster as build
+FROM debian:trixie as build
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -9,7 +9,7 @@ WORKDIR /opt
 RUN set -xe \
     && apt-get update \
     && apt-get -y --no-install-recommends install \
-        extlinux syslinux-efi syslinux-common gdisk dosfstools tree \
+        extlinux syslinux-efi syslinux-common gdisk dosfstools e2fsprogs tree \
     && mkdir -p /opt/conf /opt/img 
 
 # copy files
